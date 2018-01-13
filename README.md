@@ -6,10 +6,11 @@ It is to simplify and reduce amount of boilerplate code dealing with immutable o
 state = remute(state, x => x.foo.bar, "new value");
 ```
 RemuteJS exports `remute` function that accepts 
-a) current state 
-b) arrow function that is a navigation property pointing to the property you are going to change
-c) new value
-The result has updated references for all the objects involved in arrow function. The rest of references remain untouched. 
+1. current state 
+2. arrow function that is a navigation property pointing to the property you are going to change
+3. new value
+
+The result has updated references for all the objects involved in arrow function. The rest of the references remain untouched. 
 
 RemuteJS is written using TypeScript and by default is transpiled to ES6 but it works just fine being transpiled to ES5.
 
