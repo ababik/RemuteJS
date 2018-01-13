@@ -1,17 +1,10 @@
 # RemuteJS
-RemuteJS is TypeScript/JavaScript tool to generate immutable applying lambda expressions.
+RemuteJS is TypeScript/JavaScript tool to produce new immutable object from the previous one using ES6 arrow functions.
+It is to simplify and reduce amount of boilerplate code dealing with immutable objects, like produce state in React application.
 
-## Examples (flat and nested object structures)
-
-```ts
-interface Employee {
-    readonly firstName: string;
-    readonly lastName: string;
-}
-```
-
-```ts
-const expected: Employee = {
+## Examples
+```js
+const expected = {
     firstName: "John",
     lastName: "Doe"
 };
