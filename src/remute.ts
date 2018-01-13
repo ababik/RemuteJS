@@ -3,7 +3,7 @@ export { remute };
 const remute = <TInstance, TValue>(instance: TInstance, expression: (x: TInstance) => TValue, value: TValue) => {
     const stack = parse(expression);
     const reference = stack.shift();
-    if (!reference.length) return instance;
+    if (!stack.length) return instance;
     const mutation = compose(stack, value);
     const result = merge(instance, mutation);
     return result as TInstance;

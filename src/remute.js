@@ -2,7 +2,7 @@ export { remute };
 const remute = (instance, expression, value) => {
     const stack = parse(expression);
     const reference = stack.shift();
-    if (!reference.length)
+    if (!stack.length)
         return instance;
     const mutation = compose(stack, value);
     const result = merge(instance, mutation);
