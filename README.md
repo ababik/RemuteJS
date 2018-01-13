@@ -16,6 +16,7 @@ Obviously using arrow functions along with TypeScript gives you the best coding 
 ![Alt text](/assets/coding.png "Coding is cool with RemuteJS")
 
 RemuteJS is written using TypeScript and by default is transpiled to ES6 but it works just fine being transpiled to ES5.
+It has 0 dependencies and just 75 lines.
 
 ## Basic example
 ```js
