@@ -77,6 +77,8 @@ test(() => {
             ]
         }
     };
+    // Yeah, I know, bad thing here - I'm mutating original array but it's just to test
+    // that array reference is updated
     const employees = expected.developmentDepartment.Employees;
     employees.push({ firstName: "Dev", lastName: "3" });
     const actual = remute(expected, x => x.developmentDepartment.Employees, employees);
