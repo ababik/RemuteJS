@@ -13,7 +13,7 @@ RemuteJS exports `remute` function that accepts
 
 New state has updated references for all the objects involved in arrow function. The rest of the references remain untouched. 
 
-Obviously using arrow functions along with TypeScript gives you the best coding experience incluting [generics](https://www.typescriptlang.org/docs/handbook/generics.html) and refactoring features.
+Obviously using arrow functions along with TypeScript gives you the best coding experience including [generics](https://www.typescriptlang.org/docs/handbook/generics.html) and refactoring features.
 ![Alt text](/assets/coding.png "Coding is cool with RemuteJS")
 
 RemuteJS is written using TypeScript and by default is transpiled to ES6 but it works just fine being transpiled to ES5.
