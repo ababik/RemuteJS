@@ -12,10 +12,8 @@ const remute = <TInstance, TValue>(instance: TInstance, expression: (x: TInstanc
 const parse = (expression: Function) => {
     return expression
         .toString()
-        .replace("return", "=>")
         .split("=>")
         .pop()
-        .replace(/;|}/g, "")
         .split(".")
         .map(x => x.trim());
 };
@@ -42,32 +40,35 @@ const merge = (...mutations) => {
             const isInstanceObject = isObject(instance[key]);
             const isInstanceArray = isArray(instance[key]);
             const isInstanceValue = !isInstanceObject && !isInstanceArray;
-            
+
             const isMutationObject = isObject(mutation[key]);
             const isMutationArray = isArray(mutation[key]);
             const isMutationValue = !isMutationObject && !isMutationArray;
-            
-            const doAssign = () => instance[key] = mutation[key];
-            const doMerge = () => instance[key] = merge(instance[key], mutation[key]);
-            const doClone = () => instance[key] = isSame ? [...mutation[key]] : mutation[key];
 
-            if (isMutationNull) doAssign();
+            if (isMutationNull) doAssign(instance, mutation, key);
 
-            else if (isInstanceObject && isMutationObject) doMerge();
-            else if (isInstanceObject && isMutationArray) doAssign();
-            else if (isInstanceObject && isMutationValue) doAssign();
+            else if (isInstanceObject && isMutationObject) doMerge(instance, mutation, key);
+            else if (isInstanceObject && isMutationArray) doAssign(instance, mutation, key);
+            else if (isInstanceObject && isMutationValue) doAssign(instance, mutation, key);
 
-            else if (isInstanceArray && isMutationObject) doAssign();
-            else if (isInstanceArray && isMutationArray) doClone();
-            else if (isInstanceArray && isMutationValue) doAssign();
+            else if (isInstanceArray && isMutationObject) doAssign(instance, mutation, key);
+            else if (isInstanceArray && isMutationArray) doClone(instance, mutation, key, isSame);
+            else if (isInstanceArray && isMutationValue) doAssign(instance, mutation, key);
 
-            else if (isInstanceValue && isMutationObject) doAssign();
-            else if (isInstanceValue && isMutationArray) doAssign();
-            else if (isInstanceValue && isMutationValue) doAssign();
+            else if (isInstanceValue && isMutationObject) doAssign(instance, mutation, key);
+            else if (isInstanceValue && isMutationArray) doAssign(instance, mutation, key);
+            else if (isInstanceValue && isMutationValue) doAssign(instance, mutation, key);
         }
     }
     return instance;
 };
 
-const isArray = (value) => Object.prototype.toString.call(value) === "[object Array]";
-const isObject = (value) => (typeof value === "object") && !isArray(value);
+const arrayConstructor = ([]).constructor;
+const objectConstructor = ({}).constructor;
+
+const doAssign = (instance: any, mutation: any, key: string) => instance[key] = mutation[key];
+const doMerge = (instance: any, mutation: any, key: string) => instance[key] = merge(instance[key], mutation[key]);
+const doClone = (instance: any, mutation: any, key: string, isSame: boolean) => instance[key] = isSame ? [...mutation[key]] : mutation[key];
+
+const isArray = (value) => arrayConstructor === value.constructor;
+const isObject = (value) => objectConstructor === value.constructor;
